@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jQuery-3.5.1.min.js"></script>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .one {
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        .chance, .all {
+            height: 18px;
+            width: 18px;
+            border-color: red;
+            vertical-align: middle;
+            margin-top: -3px;
+        }
+    </style>
+    <script type="application/javascript">
+        var list = [];
+        var regis = document.getElementsByName("chance");
+        // var blk = document.querySelector('#blk');
+        // var del = document.querySelector('#del');
+
+        function allChance(obj) {
+            if (obj.checked) {
+                for (let i = 0; i < regis.length; i++) {
+                    if (list.indexOf(regis[i].value) == -1) {
+                        list.push(parseInt(regis[i].value));
+                    }
+                    regis[i].checked = true;
+                }
+            } else {
+                for (let i = 0; i < regis.length; i++) {
+                    regis[i].checked = false;
+                    list.splice(i)
+                }
+            }
+        }
+
+        function onChance(org) {
+            if (org.checked) {
+                if (list.indexOf(org.value) == -1) {
+                    list.push(parseInt(org.value))
+                }
+                if (list.length == regis.length) {
+                    document.querySelector('#all').checked=true;
+                }
+            } else {
+                document.querySelector('#all').checked=false;
+                list.splice(list.indexOf(org.value), 1);
+            }
+        }
+
+        function sendHref() {
+            if (list.length == 0) {
+                alert("请至少选择一个账号进行删除")
+                return false
+            }
+            window.location.href = "/delete?list=" + list;
+        }
+    </script>
+</head>
+<body>
+<div>
+    <div th:style="${type==0} ? 'display: none' : ''">
+        <button><a th:href="@{/toRegister}">添加</a></button>
+        <!--    <label><a onclick="sendHref()" th:href="@{/delete}">删除</a></label>-->
+        <button onclick="sendHref()">删除用户</button>
+    </div>
+    <table width="100%" border=1>
+        <tr>
+            <th class="one" id="del" th:style="${type==0} ? 'display: none' : ''">全选
+                <input type="checkbox" id="all" name="all" class="all" onclick="allChance(this)">
+            </th>
+            <th class="one">编号</th>
+            <th class="one">姓名</th>
+            <th class="one">密码</th>
+            <th class="one">身份</th>
+            <th class="one">备注</th>
+            <th class="one" th:style="${type==0} ? 'display: none' : ''">操作</th>
+        </tr>
+        <tr th:each="users:${userList}">
+            <td class="one" id="blk" th:style="${type==0} ? 'display: none' : ''">
+                <input type="checkbox" class="chance" name="chance" onclick="onChance(this)"
+                       th:value="${users.uCode}">
+            </td>
+            <td class="one" th:text="${users.uCode}"></td>
+            <td class="one" th:text="${users.uName}"></td>
+            <td class="one" th:text="${users.uPwd}"></td>
+            <td class="one" th:text="${users.uType==1?'管理员':'普通员工'}"></td>
+            <td class="one" th:text="${users.uMemo}"></td>
+            <td class="one" th:style="${type==0} ? 'display: none' : ''">
+                <a th:href="@{/toUpdate(uCode=${users.uCode})}">修改</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

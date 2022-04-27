@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.model.User">
+        <result column="uCode" jdbcType="INTEGER" property="uCode"/>
+        <result column="uName" jdbcType="VARCHAR" property="uName"/>
+        <result column="uPwd" jdbcType="VARCHAR" property="uPwd"/>
+        <result column="uType" jdbcType="INTEGER" property="uType"/>
+        <result column="uMemo" jdbcType="VARCHAR" property="uMemo"/>
+    </resultMap>
+
+    <!--    <select id="selectUser" resultType="Map" parameterType="map">-->
+    <!--        select * from usertable-->
+    <!--    </select>-->
+
+
+    <!--    <insert id="addUer" parameterType="User">-->
+    <!--      insert into usertable values (default ,#{uName},#{uPwd},#{uType},#{uMemo})-->
+    <!--    </insert>-->
+
+    <!--    <select id="login" resultType="int">-->
+    <!--        select count(*) from usertable where uName=#{uName} and uPwd=#{uPwd} and uType=#{uType}-->
+    <!--    </select>-->
+
+    <update id="update" parameterType="User">
+        update usertable
+        set uName=#{uName},
+            uPwd=#{uPwd},
+            uType=#{uType},
+            uMemo=#{uMemo}
+        where uCode=#{uCode}
+    </update>
+
+</mapper>

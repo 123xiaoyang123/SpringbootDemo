@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: dev
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: templates/**
+    freemarker:
+      cache: false    #页面不加载缓存，修改即时生效
+  kafka:
+    bootstrap-servers: 192.168.153.131:9092 #服务器的ip及端口，可以写多个，服务器之间用“：”间隔
+    producer: #生产者配置
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer: #消费者配置
+      group-id: test #设置消费者的组id
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+#jwt
+jwt:
+  header: Authorization
+  # 令牌前缀
+  token-start-with: Bearer
+  # 必须使用最少88位的Base64对该令牌进行编码
+  base64-secret: Zmpqc2Q9ODcyZHNkZjIzM2OkNFJFUkZhMzIzMjQzMlJkaWHzMnIyMzk4dTMyamZra3NXMjMxM1QyMzMmKiZqZUxKRiZeKjFHTExQO0RKODk4NDNqcmUoKGlvZXdqZktKRE8zMnhjY08yS0ZLTlNmZ2hqb3AtPTFSV0VIUkVXRVc=
+  # 令牌过期时间 此处单位/毫秒 ，默认4小时
+  token-validity-in-seconds: 14400000
+  # 在线用户key
+  online-key: online-token
+  # 验证码
+  code-key: code-key
+
+

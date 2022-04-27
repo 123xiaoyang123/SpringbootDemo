@@ -1,0 +1,2 @@
+普通字符串
+com.example.pojo.file.PrintStreamTest@2e5d6d97

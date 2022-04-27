@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .one {
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+
+        }
+    </style>
+</head>
+<body>
+<div>
+    <table width="100%" border=1>
+        <tr>
+            <th class="one">id</th>
+            <th class="one">组长姓名</th>
+            <th class="one">性别</th>
+            <th class="one">生日</th>
+            <th class="one">code</th>
+            <th class="one">身份</th>
+            <th class="one">用户姓名</th>
+            <th class="one">密码</th>
+            <th class="one">备注</th>
+            <th class="one">操作</th>
+        </tr>
+        <tr th:each="users:${userList}">
+            <td class="one" th:text="${users.id}"></td>
+            <td class="one" th:text="${users.name}"></td>
+            <td class="one" th:text="${users.sex==1?'男':'女'}"></td>
+            <td class="one" th:text="${users.time}"></td>
+            <td class="one" th:text="${users.uCode}"></td>
+            <td class="one" th:text="${users.uType==1?'管理员':'普通员工'}"></td>
+            <td class="one" th:text="${users.uName}"></td>
+            <td class="one" th:text="${users.uPwd}"></td>
+            <td class="one" th:text="${users.uMemo}"></td>
+            <td class="one">
+                <a th:href="@{/toRegister}">添加</a>
+                <a th:href="@{/delete(uCode=${users.uCode})}">删除</a>
+                <a th:href="@{/toUpdate(uCode=${users.uCode})}">修改</a>
+                <!--                <a th:href="">信息</a>-->
+            </td>
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>

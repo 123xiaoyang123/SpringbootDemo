@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.example.model.Customer">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="time" jdbcType="DATE" property="time" javaType="Date"/>
+        <collection property="userList" javaType="List" ofType="com.example.model.User">
+            <id column="u.uCode" jdbcType="INTEGER" property="uCode"></id>
+            <result column="u.uName" jdbcType="VARCHAR" property="uName"></result>
+            <result column="u.uPwd" jdbcType="VARCHAR" property="uName"></result>
+            <result column="u.uType" jdbcType="INTEGER" property="uType"></result>
+            <result column="u.uMemo" jdbcType="VARCHAR" property="uMemo"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selectAll" resultType="MAP">
+        select c.id, c.name, c.sex, DATE_FORMAT(c.time,'%Y-%m-%d %h:%i:%s') time, c.uType uType,u.uCode uCode, u.uName uName, u.uPwd uPwd, u.uMemo uMemo
+        from customer c left join usertable u on c.uType=u.uType
+    </select>
+
+
+</mapper>

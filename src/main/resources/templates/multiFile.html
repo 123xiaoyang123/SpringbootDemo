@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>多文件上传</title>
+</head>
+<body>
+<h1 th:utext="text">文件上传</h1>
+<form action="multiFileUpload" enctype="multipart/form-data" method="post">
+    <p>文件上传1: <input type="file" name="fileName"></p>
+    <p>文件上传2: <input type="file" name="fileName"></p>
+    <p>文件上传3: <input type="file" name="fileName"></p>
+    <p><input type="submit" value="上传"></p>
+</form>
+</body>
+</html>
